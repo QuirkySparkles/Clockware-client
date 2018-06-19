@@ -1,0 +1,25 @@
+<div id="maslist">
+    <div class="f-table" v-if="maslist[0]">
+        <div class="f-tr">
+            <div class="f-td f-th">№</div>
+            <div class="f-td f-th">Мастер</div>
+            <div class="f-td f-th">Город</div>
+            <div class="f-td f-th">Рейтинг</div>
+            <div class="f-td f-th"></div>
+        </div>
+        <div class ="f-tr" v-for="(master, index) in maslist" v-bind:key="master.id">
+            <div class="f-td">{{index + 1}}.</div>
+            <div class="f-td">{{master.name}} {{master.surname}}</div>
+            <div class="f-td">{{master.city}}</div>
+            <div class="f-td">{{master.rating}}</div>
+            <div class="f-tde">
+                <input type="radio"
+                    v-bind:value="master.id"
+                    v-model="chosenmaster"
+                    v-on:click="chosenmaster=master.id, chooseidfn(chosenmaster)"
+                    v-bind:checked="master.id==chosenmaster"
+                    title="Выбрать этого мастера">
+            </div>    
+        </div>
+    </div>
+</div>

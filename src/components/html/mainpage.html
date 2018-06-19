@@ -1,0 +1,52 @@
+<div id="mainpage">
+    <div class="loginbutton" 
+         v-if="!isAuthorized"
+         v-on:click="isActive=!isActive, clean()">login</div>
+    <div class="loginbutton" 
+         v-if="isAuthorized"
+         v-on:click="toAdmin">Вы в системе</div>
+    <div class="layout-loginform" v-bind:class="{'loginform-animation': isActive}">
+        <div>
+            <adminform v-bind:isActive="isActive" ref="cleanState"></adminform>
+        </div>
+    </div>
+    <router-link to="/"><img :src="require('../../assets/logo.png')"></router-link>
+    <div class="layout-content" v-if="!isDone">
+        <div class="tip">Для того чтобы оставить заказ, просто заполните форму ниже.</div>
+        <div class="layout-form">
+            <form>
+                <label for="cl-name"><span class="warning-tip" v-show="nameWarning">Введите корректное имя.</span>Имя</label><br>
+                <input class="cl-name" type="text" minlength="3" v-model.lazy.trim="name" required><br><br>
+                <label for="cl-email"><span class="warning-tip" v-show="emailWarning">Введите корректный email.</span>Email</label><br>
+                <input class="cl-email" type="email" v-model.lazy.trim="email" required><br><br>
+                <label>Размер часов:</label><br>
+                <label><span class="tooltiptext">Ремонт займет 1 час</span>Маленькие <input name="clocksize" type="radio" value="small" v-model="clocksize"></label><br>
+                <label><span class="tooltiptext tip2">Ремонт займет 2 часа</span>Средние <input class="clockmedium" type="radio" value="medium" v-model="clocksize"></label><br>
+                <label><span class="tooltiptext tip3">Ремонт займет 3 часа</span>Большие <input class="clocklarge" type="radio" value="large" v-model="clocksize"></label><br><br>
+                <label>Город</label><br>
+                <select v-model="city">
+                    <option v-for="city in cities">{{city}}</option>
+                </select><br><br>
+                <label><span class="warning-tip warning-2" v-show="dateWarning">Введите корректную дату и время.</span>Выберите удобную дату и время</label><br>
+                <input type="date" v-model="orderDate" required>
+                <select v-model="orderTime">
+                    <option v-for="time in times">{{time}}:00</option>          
+                </select><br>
+            </form>
+            <button class="check-masters" v-on:click="checkAvailability">Проверить наличие мастеров</button><br><br>
+            <p v-if="!maslist[0] && invisible">К сожалению, на данное время нет свободных мастеров.</p>
+        </div>
+        <div class="layout-list" v-if="maslist[0]">
+            <p>Выберите мастера из списка:</p>
+            <masterlist v-bind:maslist="maslist"
+                            v-bind:chooseidfn="chooseId"></masterlist>
+            <transition name="order-key"
+                        enter-active-class="hovering">
+                <div class="confirm-order" v-if="masterId"
+                    v-on:click="sendData"
+                    v-bind:disabled="disabled">Оформить заказ</div>
+            </transition>
+        </div>
+    </div>
+    <div class="success-message" v-if="isDone">{{name}}, ваш заказ был успешно оформлен! На адрес {{email}} было отправлено письмо с деталями. Спасибо что воспользовались услугами нашей компании!</div>
+</div>

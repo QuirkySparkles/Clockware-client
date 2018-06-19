@@ -1,0 +1,35 @@
+<div class="citypage">
+    <h2>Управление городами</h2>
+    <p v-show="!serverReply">Не могу отобразить список городов.</p>
+    <p v-show="isEmpty && serverReply">Таблица пуста.</p>
+    <div class="addblock">
+        <button v-show="serverReply"
+                v-on:click="visible = !visible">Добавить город</button>
+        <input class="cityinput" type=text placeholder="Введите название города" 
+                   v-model.trim="newCity"
+                   v-show=visible>
+        <button v-show=visible
+                v-on:click="addCity">Добавить</button>
+    </div>
+    <span v-show="!isCorrect">Ошибка при введении названия.</span>
+    <div class="table-cover">
+        <div class="f-table" v-show="!isEmpty">
+            <div class="f-tr" v-show="!isEmpty && serverReply">
+                <div class="f-td f-th">№</div>
+                <div class="f-td f-th">Название</div>
+            </div>
+            <div class="f-tr" v-for="instance in datalist"
+                 v-show="!isEmpty">
+                <div class="f-td">{{instance.number}}.</div>
+                <div class="f-td">{{instance.city}} </div>
+                <div class="f-tde">
+                    <input class="delbox" type="checkbox" 
+                    v-bind:value="instance.number" 
+                    v-model="toDelete" title="Выделить">
+                </div>
+            </div>
+        </div>
+    </div>    
+    <button v-if="toDelete[0]"
+            v-on:click="deleteCity">Удалить выбранные города</button>
+</div>

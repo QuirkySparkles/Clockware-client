@@ -1,0 +1,108 @@
+<div class="masters-page">
+    <h2>Управление мастерами</h2>
+    <p v-show="!serverReply">Не могу отобразить список мастеров.</p>
+    <p v-show="isEmpty && serverReply">Таблица пуста.</p>
+    <button v-show="serverReply"
+            v-on:click="showForm=!showForm">Добавить мастера</button>
+    <div class="table-cover">
+        <div class="f-table" v-show="!isEmpty">
+            <div class="f-tr" v-show="!isEmpty && serverReply">
+                <div class="f-td">ID мастера</div>
+                <div class="f-td">Имя</div>
+                <div class="f-td">Фамилия</div>
+                <div class="f-td">Город</div>
+                <div class="f-td">Рейтинг</div>
+            </div>
+            <div class="f-tr" v-for="instance in datalist">
+                <div class="f-td">{{instance.id}}</div>
+                <div class="f-td">{{instance.name}}</div>
+                <div class="f-td">{{instance.surname}}</div>
+                <div class="f-td">{{instance.city}}</div>
+                <div class="f-td">{{instance.rating}}</div>
+                <div class="f-td">
+                    <div class="icon-wrapper">
+                        <img class="edit-icon" :src="require('../../assets/edit.svg')"
+                             v-on:click="number=instance.number, editRecord()"
+                             v-bind:disabled="isDisabled"title="Редактировать">
+                    </div>
+                </div>
+                <div class="f-td">
+                    <input class="delbox" type="checkbox" 
+                            v-bind:value="instance.number" 
+                            v-model="toDelete" title="Выделить">
+                </div>
+            </div>
+        </div>
+    </div>    
+    <div class="modal-background" v-show="showForm"
+         v-on:click="showForm=false, isDisabled=false, errorField=''">
+    </div>
+    <div class="modal-background" v-show="isVisible"
+         v-on:click="isVisible=false, isDisabled=false, errorField=''">
+    </div>
+    <div class="editform" v-show="showForm">
+        <p>Добавить нового мастера:</p>
+        <table>
+            <tr>
+                <td><label>ID мастера:</label></td>
+                <td><input type="text" v-model.lazy.trim="toAdd.id" required></td>
+            </tr>
+            <tr>
+                <td><label>Имя:</label></td>
+                <td><input type="text" v-model.lazy.trim="toAdd.name" required></td>
+            </tr>
+            <tr>
+                <td><label>Фамилия:</label></td>
+                <td><input type="text" v-model.lazy.trim="toAdd.surname" required></td>
+            </tr>
+            <tr>
+                <td><label>Город:</label></td>
+                <td><input v-model.lazy.trim="toAdd.city" required></td>
+            </tr>
+            <tr>
+                <td><label>Рейтинг:</label></td>
+                <td><select v-model="toAdd.rating">
+                    <option v-for="rating in ratings">{{rating}}</option>
+                </select></td>
+            </tr>                
+        </table>
+        <div v-show="errorField">Ошибка при заполнении поля {{errorField}}</div>
+        <button v-on:click="showForm=!showForm, errorField=''">Отмена</button>
+        <button v-on:click="addMaster">Добавить</button>
+    </div>
+    <div class="editform" v-show="isVisible">
+        <p>Редактировать запись:</p>
+        <table>
+            <tr>
+                <td><label>ID мастера:</label></td>
+                <td><input type="text" v-model.lazy.trim="toEdit.id" required></td>
+            </tr>
+            <tr>
+                <td><label>Имя:</label></td>
+                <td><input type="text" v-model.lazy.trim="toEdit.name" required></td>
+            </tr>
+            <tr>
+                <td><label>Фамилия:</label></td>
+                <td><input type="text" v-model.lazy.trim="toEdit.surname" required></td>
+            </tr>
+            <tr>
+                <td><label>Город:</label></td>
+                <td><input v-model.lazy.trim="toEdit.city" required></td>
+            </tr>
+            <tr>
+                <td><label>Рейтинг:</label></td>
+                <td>
+                    <select v-model="toEdit.rating">
+                        <option v-for="rating in ratings">{{rating}}</option>
+                    </select>
+                </td>
+            </tr>    
+        </table>
+        <div v-show="errorField">Ошибка при заполнении поля {{errorField}}</div>
+        <button v-on:click="isVisible=!isVisible,
+                            isDisabled=false, errorField=''">Отмена</button>
+        <button v-on:click="acceptChanges('masters')">Внести изменения</button>
+    </div>
+    <button v-show="toDelete[0]"
+            v-on:click="deleteRecord('masters')">Удалить выбранные записи</button>
+</div>

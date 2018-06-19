@@ -1,0 +1,11 @@
+.warning {
+    width: 300px;
+    margin: 20px auto 0;
+    font-size: 24px;
+}
+
+img {
+    position: absolute;
+    top: 0;
+    left: 100px;
+}

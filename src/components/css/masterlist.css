@@ -1,0 +1,45 @@
+.f-table {
+    display: table;
+    border-collapse: collapse;
+    border-radius: 5px;
+    border: 2px solid #E8E0B1;
+    width: 520px;
+    background: white;
+    margin: 15px 20px;
+    bottom: 15px;
+}
+
+.f-tr {
+    display: table-row;
+    border-bottom: 1px solid black;
+}
+
+.f-td {
+    display: table-cell;
+    text-align: center;
+    border: none;
+    vertical-align: middle;
+    padding: 20px 20px;
+}
+
+.f-th {
+    border-right: 1px solid black;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.f-th:nth-child(n + 4) {
+    border-right: none;
+}
+
+.f-th:last-child {
+    border-bottom: 1px solid white;
+}
+
+.f-tde {
+    display: table-cell;
+    border-bottom: 1px solid white;
+    padding-top: 22px;
+    padding-left: 10px;
+    padding-bottom: 16px;
+}

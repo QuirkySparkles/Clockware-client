@@ -1,0 +1,81 @@
+<div class="reservation-page">
+    <h2>Управление списком бронирований</h2>
+    <p v-show="!serverReply">Не могу отобразить список бронирований.</p>
+    <p v-show="isEmpty && serverReply">Таблица пуста.</p>
+    <div class="table-cover">
+        <div class="f-table" v-show="!isEmpty">
+            <div class="f-tr" v-show="!isEmpty && serverReply">
+                <div class="f-td">№</div>
+                <div class="f-td">Email заказчика</div>
+                <div class="f-td">Город</div>
+                <div class="f-td">ID мастера</div>
+                <div class="f-td">Размер часов</div>
+                <div class="f-td">Дата заказа</div>
+                <div class="f-td">Время</div>
+            </div>
+            <div class="f-tr" v-for="instance in datalist">
+                <div class="f-td">{{instance.number}}.</div>
+                <div class="f-td">{{instance.client_email}}</div>
+                <div class="f-td">{{instance.city}}</div>
+                <div class="f-td">{{instance.master_id}}</div>
+                <div class="f-td">{{instance.clocksize}}</div>
+                <div class="f-td">{{instance.order_date}}</div>
+                <div class="f-td">{{instance.order_time}}</div>
+                <div class="f-td">
+                    <div class="icon-wrapper">
+                        <img class="edit-icon" :src="require('../../assets/edit.svg')"
+                             v-on:click="number=instance.number, editRecord()"
+                             v-bind:disabled="isDisabled"title="Редактировать">
+                    </div>
+                </div>
+                <div class="f-td">
+                    <input class="delbox" type="checkbox" 
+                            v-bind:value="instance.number" 
+                            v-model="toDelete" title="Выделить">
+                </div>
+            </div>
+        </div>
+    </div>    
+    <div class="modal-background" v-show="isVisible"
+         v-on:click="isVisible=false, isDisabled=false, errorField=''">
+    </div>
+    <div class="editform" v-show="isVisible">
+        <p>Редактировать запись:</p><br>
+        <table>
+            <tr>
+                <td><label>Город:</label></td>
+                <td><input type="text" v-model.lazy.trim="toEdit.city" required></td>
+            </tr>
+            <tr>
+                <td><label>Email клиента:</label></td>
+                <td><input type="text" v-model.lazy.trim="toEdit.client_email" required></td>
+            </tr>
+            <tr>
+                <td><label>ID мастера: </label></td>
+                <td><input type="text" v-model.lazy.trim="toEdit.master_id" required></td>
+            </tr>
+            <tr>
+                <td><label>Размер часов:</label></td>
+                <td><select v-model="toEdit.clocksize">
+                    <option v-for="size in clocksize">{{size}}</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td><label>Дата заказа:</label></td>
+                <td><input v-model.lazy.trim="toEdit.order_date" required></td>
+            </tr>
+            <tr>
+                <td><label>Время заказа:</label></td>
+                <td><select v-model="toEdit.order_time">
+                    <option v-for="time in times">{{time}}:00</option>
+                </select></td>
+            </tr>
+        </table>
+        <span v-show="errorField">Ошибка при заполнении поля {{errorField}}</span>
+        <button v-on:click="isVisible=!isVisible,
+                            isDisabled=false, errorField='' ">Отмена</button>
+        <button v-on:click="acceptChanges('orders')">Внести изменения</button>
+    </div>
+    <button v-show="toDelete[0]"
+            v-on:click="deleteRecord('orders')">Удалить выбранные записи</button>
+</div>

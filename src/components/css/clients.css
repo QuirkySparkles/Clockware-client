@@ -1,0 +1,135 @@
+@keyframes form-anim {
+    from {
+        opacity: 0;
+        top: 15%;
+    }
+    to {
+        opacity: 1;
+        top: 30%;
+    }
+}
+
+.clientpage {
+    max-width: 850px;
+    width: 80%;
+    margin: 0 auto 30px;
+    text-align: center;
+    padding: 1px 1px 30px;
+    background: #f7b45d;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.table-cover {
+    overflow-y: auto;
+    width: 100%;
+}
+
+.f-table {
+    width: auto;
+    display: table;
+    margin: 0 auto 20px;
+    border-collapse: collapse;
+}
+
+.f-tr {
+    display: table-row;
+    border-bottom: 2px solid black;
+}
+
+.f-td {
+    display: table-cell;
+    text-align: center;
+    border: none;
+    vertical-align: middle;
+    padding: 10px 0;
+}
+
+.f-tr:first-child .f-td{
+    padding: 0 4px 5px;
+    border-right: 1px solid black;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.f-tr:first-child .f-td:last-child {
+    border-right: none;
+}
+
+.f-tr .f-td:nth-child(n + 7) {
+    padding-left: 10px;
+    border-bottom: 2px solid #f7b45d;
+}
+
+.icon-wrapper {
+    width: 25px;
+    position: relative;
+    height: 25px;
+    border-radius: 3px;
+}
+
+.icon-wrapper:hover {
+    background: #d8993a;
+}
+
+.icon-wrapper:active {
+    background: #b78233;
+}
+
+.edit-icon {
+    position: absolute;
+    left: 2px;
+    width: inherit;
+    height: inherit;
+}
+
+.delbox {
+    position: relative;
+    top: 2px;
+    left: 5px;
+}
+
+.modal-background {
+    position: fixed;
+    overflow: auto;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.editform {
+    width: 300px;
+    position: fixed;
+    top: 30%;
+    left: 40%;
+    border: 5px solid #725c3f;
+    border-radius: 5px;
+    background-color: #ffd65b;
+    display: inline-block;
+    padding: 15px 20px 20px;
+    animation: form-anim 0.3s;
+}
+
+.editform table {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.editform td {
+    padding-bottom: 15px;
+}
+
+.editform td:last-child {
+    padding-left: 8px;
+}
+
+.editform button {
+    position: relative;
+    right: 25px;
+    margin-top: 10px;
+    margin-left: 30px;
+}

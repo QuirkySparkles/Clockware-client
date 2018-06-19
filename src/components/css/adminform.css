@@ -1,0 +1,59 @@
+.adminform {
+    visibility: hidden;
+    width: 255px;
+    height: 86px;
+    padding: 10px;
+    background-color: #BEE9F6;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 3px solid #ABDEED;
+    border-top: none;
+}
+
+.adminform input {
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+.adminform label {
+    float: left;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 6px;
+    padding-left: 5px;
+}
+
+.adminform label:nth-child(3) {
+    margin-top: 12px;
+}
+
+.adminform span {
+    float: left;
+    margin-top: 5px;
+    font-size: 14px;
+    color: red;
+}
+
+.logbut {
+    position: absolute;
+    top: 75px;
+    right: 35px;
+    width: 50px;
+    background: #7fffbb;
+    text-align: center;
+    padding: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logbut:active {
+    background: #60c18e;
+}
+
+.adminform .adminlogin {
+    float: right;
+}
+
+.active {
+    visibility: visible;
+}

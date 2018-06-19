@@ -1,0 +1,17 @@
+<div v-if="isAuthorized" class="admin">
+    <div class="logoutbutton" v-on:click="logout">Выход</div>
+    <router-link to="/" exact><img :src="require('../../assets/logo.png')"></router-link>
+    <div class="layout-content">
+        <div class="layout-intro">
+            <h1>Добро пожаловать на страницу админа</h1>
+            <p>Выберите раздел с которым хотите поработать:</p>
+        </div>
+        <div class="switchers">
+            <router-link to="/admin/clients"><div class="switcher">Клиенты</div></router-link>
+            <router-link to="/admin/masters"><div class="switcher">Мастера</div></router-link>
+            <router-link to="/admin/cities"><div class="switcher">Города</div></router-link>
+            <router-link to="/admin/reservations"><div class="switcher">Бронирования</div></router-link>
+        </div>
+        <router-view v-if="isAuthorized"></router-view>
+    </div>    
+</div>

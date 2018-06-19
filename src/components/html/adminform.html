@@ -1,0 +1,13 @@
+<div class="adminform" v-bind:class="{active: isActive}">
+    <form id="admform">
+        <label>Логин:</label>
+        <input class="adminlogin"
+               v-model.lazy.trim="login" required>
+        <label>Пароль:</label>
+        <input class="adminlogin" type="password"
+               v-model.lazy.trim="password" required>
+    </form>
+    <div class="logbut" v-on:click="authorize">Войти</div>
+    <span v-show="isEmpty">Вы не ввели логин/пароль</span>
+    <span v-show="logWarning">Неверный логин или пароль</span>
+</div>
